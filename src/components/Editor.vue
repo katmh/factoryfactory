@@ -9,16 +9,26 @@
         </div>
         <div class="row" v-bind:key="index" v-for="(word, index) in words">
           <input type="text" v-model="word.default" class="default_word" />
-          <input type="text" v-model="word.synonyms" class="synonyms" />
+          <div class="synonyms_container">
+            <input type="text" v-model="word.synonyms" class="synonyms" />
+            <button class="delete">X</button>
+          </div>
         </div>
 
         <button id="new_word" v-on:click="$emit('addWord')">+ Add Word</button>
 
-        <label class="label" for="button_text">Button Text: </label>
-        <input name="button_text" type="text" v-model="buttonText" />
+        <div class="field_row">
+          <label class="label" for="button_text">Button Text: </label>
+          <input name="button_text" type="text" v-model="buttonText" />
+        </div>
+
+        <div class="field_row" id="url_container">
+          <label class="label" for="url">Shareable URL (not real yet): </label>
+          <input name="url" type="text" value="https://gener-inator.netlify.app/W3siZGVmYXVsdCI6ICJoZWxsbyIsICJ2YWx1ZSI6ICJoZWxsbyIsICJzeW5vbnltcyI6IFsiaGkiLCAiaGV5IiwgIndhc3N1cCIsICJ5byJdfSwgeyJkZWZhdWx0IjogIndvcmxkIiwgInZhbHVlIjogIndvcmxkIiwgInN5bm9ueW1zIjogWyJ1bml2ZXJzZSIsICJnbG9iZSIsICLkuJbnlYwiXX1d" readonly />
+        </div>
       </div>
       <div id="debugging">
-        <h2>Devtoolz :))</h2>
+        <h2>Devtoolz so I can debug</h2>
         <p>words:<br />{{ words }}</p>
         <p>buttonText: {{ buttonText }}</p>
       </div>
@@ -57,7 +67,7 @@ export default {
   }
   #debugging {
     width: 30%;
-    padding-left: 1rem;
+    padding-left: 1.5rem;
     color: #eee;
   }
   #debugging p {
@@ -77,6 +87,9 @@ export default {
     grid-template-columns: 1fr 3fr;
   }
 
+  .synonyms_container {
+    display: flex;
+  }
   input.synonyms {
     width: 100%;
   }
@@ -117,5 +130,36 @@ export default {
     font-weight: bold;
     cursor: pointer;
     background: #8c3bff;
+  }
+
+  .field_row {
+    display: block;
+  }
+  .field_row .label {
+    margin-right: 0.25rem;
+  }
+  .field_row input {
+    width: 50%;
+    min-width: 30rem;
+  }
+
+  #url_container {
+    margin-top: 2rem;
+  }
+
+  .delete {
+    width: 30px;
+    height: 28px;
+    background: #f66;
+    border: none;
+    border-radius: 15px;
+    margin: auto 0 auto 0.5rem;
+    vertical-align: middle;
+    cursor: pointer;
+    font-family: arial;
+    transition: 0.15s;
+  }
+  .delete:hover {
+    background: #f33;
   }
 </style>
