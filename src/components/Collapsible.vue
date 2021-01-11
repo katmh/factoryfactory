@@ -30,6 +30,7 @@
       <div id="url_container">
         <label class="label" for="url">Shareable URL: </label>
         <input id="url" name="url" type="text" v-bind:value="url" readonly />
+        <button @click="copy" class="btn">Copy</button>
       </div>
     </div>
 
@@ -109,6 +110,12 @@ export default {
       }
       this.transitioning = false;
     },
+    copy() {
+      const field = document.getElementById("url");
+      field.select();
+      field.setSelectionRange(0, 999999);
+      document.execCommand("copy");
+    }
   },
   watch: {
     open(newVal, oldVal) {
@@ -171,78 +178,70 @@ export default {
   font-weight: bold;
 }
 
-  #header {
-    background: #222;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    border-top-right-radius: 0.5rem;
-    border-top-left-radius: 0.5rem;
-    width: 95%;
-    margin-left: 2.5%;
-    bottom: 2.5%;
-    padding: 1.3rem;
-  }
-  .label {
-    color: #ddd;
-    font-weight: bold;
-    margin: 0.5rem 0 0.25rem;
-  }
-  h2 {
-    color: #eee;
-    margin-bottom: 0.5rem;
-    text-transform: uppercase;
-    font-size: 1.25rem;
-    margin-right: 0.5rem;
-  }
-  #url {
-    width: 20rem;
-  }
-  button {
-    color: green;
-  }
+#header {
+  background: #222;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  border-top-right-radius: 0.5rem;
+  border-top-left-radius: 0.5rem;
+  width: 95%;
+  margin-left: 2.5%;
+  bottom: 2.5%;
+  padding: 1.3rem;
+}
+.label {
+  color: #ddd;
+  font-weight: bold;
+  margin: 0.5rem 0 0.25rem;
+}
+h2 {
+  color: #eee;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  font-size: 1.25rem;
+  margin-right: 0.5rem;
+}
+#url {
+  width: 20rem;
+  margin-right: 0.5rem;
+}
+#url_container .btn {
+  padding: 0.3rem 0.4rem;
+}
 
 .caret {
   position: relative;
+  margin-top: -0.6rem;
+}
+.caret:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+}
+.caret:after {
+  content: '';
+  position: absolute;
+  left: 1px;
+  top: 0;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
 }
 
 .caret.closed:before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-top: 10px solid #703a3a;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
+  border-top: 13px solid #ffffff;
 }
-
 .caret.closed:after {
-  content: '';
-  position: absolute;
-  left: 3px;
-  top: 0;
-  border-top: 7px solid #ffffff;
-  border-left: 7px solid transparent;
-  border-right: 7px solid transparent;
+  border-top: 13px solid #ffffff;
 }
 
 .caret.open:before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-bottom: 10px solid #703a3a;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
+  border-bottom: 13px solid #ffffff;
 }
-
 .caret.open:after {
-  content: '';
-  position: absolute;
-  left: 3px;
-  top: 0;
-  border-bottom: 7px solid #ffffff;
-  border-left: 7px solid transparent;
-  border-right: 7px solid transparent;
+  border-bottom: 13px solid #ffffff;
 }
 </style>

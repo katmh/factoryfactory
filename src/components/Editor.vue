@@ -54,8 +54,9 @@ export default {
     margin-left: 2.5%;
     background: #222;
     overflow: scroll;
-    padding: 1.3rem;
-
+    padding: 0 1.3rem 1.3rem;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
   }
   .label {
     color: #ddd;
@@ -84,16 +85,6 @@ export default {
     display: grid;
     grid-template-columns: 1fr 3fr;
   }
-  input {
-    font-size: 1rem;
-    padding: 0.3rem 0.5rem;
-    color: #fff;
-    background: #444;
-    border-radius: 0.25rem;
-    border: none;
-    border-bottom: 1px solid #656565;
-    outline: none;
-  }
   .row input, .field_row input {
     margin: 0.3rem 0;
     font-size: 1.15rem;
@@ -121,9 +112,11 @@ export default {
   .delete_word:hover {
     color: #f33;
   }
+  input {
+    border-bottom: 1px solid #656565;
+  }
   input.default_word {
     width: 100%;
-    margin-right: 0.6rem;
   }
 
 
@@ -153,24 +146,8 @@ export default {
 
   #new_word {
     display: block;
-    width: calc(25% - 0.6rem);
+    width: calc(25% - 1rem);
     margin: 0.5rem 0 1rem;
-  }
-  .btn {
-    padding: 0.5rem;
-    border-radius: 0.25rem;
-    border: none;
-    outline: none;
-    transition: .15s;
-    font-size: 1rem;
-    color: #fff;
-    font-weight: bold;
-    cursor: pointer;
-    background: #8c3bff;
-    transition: 0.1s;
-  }
-  .btn:hover, .btn:active {
-    background: #7d22ff;
   }
   #update_btn_text {
     margin-left: 0.75rem;
