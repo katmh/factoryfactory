@@ -193,10 +193,14 @@ export default {
     border-top-left-radius: 0.5rem;
   }
   .Collapsible {
+    border-top-right-radius: 0.5rem;
+    border-top-left-radius: 0.5rem;
     width: 95%;
     position: absolute;
     bottom: 0;
     left: 2.5%;
+    max-height: 60vh;
+    overflow: scroll;
   }
 }
 .label {
@@ -212,8 +216,8 @@ h2 {
   margin-right: 0.5rem;
 }
 #url {
-  width: 20rem;
-  margin-right: 0.5rem;
+  width: 100%;
+  margin: 0.5rem 0;
 }
 #url_container .btn {
   padding: 0.3rem 0.4rem;
@@ -247,11 +251,33 @@ h2 {
 .caret.closed:after {
   border-top: 13px solid #ffffff;
 }
-
 .caret.open:before {
   border-bottom: 13px solid #ffffff;
 }
 .caret.open:after {
   border-bottom: 13px solid #ffffff;
+}
+
+@media (min-width: 600px) {
+  .caret.closed:before {
+    border-bottom: 13px solid #ffffff;
+    border-top: none;
+  }
+  .caret.closed:after {
+    border-bottom: 13px solid #ffffff;
+    border-top: none;
+  }
+  .caret.open:before {
+    border-top: 13px solid #ffffff;
+    border-bottom: none;
+  }
+  .caret.open:after {
+    border-top: 13px solid #ffffff;
+    border-bottom: none;
+  }
+  #url {
+    width: 20rem;
+    margin: 0 0.5rem 0 0;
+  }
 }
 </style>

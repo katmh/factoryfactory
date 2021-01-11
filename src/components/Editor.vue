@@ -1,7 +1,7 @@
 <template>
   <Collapsible :url="url">
     <section id="editor">
-      <div class="row">
+      <div id="row_labels" class="row">
         <span class="label">Default</span>
         <span class="label">Replacements</span>
       </div>
@@ -74,14 +74,14 @@ export default {
     text-transform: uppercase;
     font-size: 1.25rem;
   }
-  #url {
-    width: 20rem;
-  }
 
 
   .row {
     display: grid;
-    grid-template-columns: 1fr 3fr;
+    margin-bottom: 1rem;
+  }
+  #row_labels {
+    display: none;
   }
   .row input, .field_row input {
     margin: 0.3rem 0;
@@ -144,22 +144,39 @@ export default {
 
   #new_word {
     display: block;
-    width: calc(25% - 1rem);
     margin: 0.5rem 0 1rem;
-  }
-  #update_btn_text {
-    margin-left: 0.75rem;
   }
 
 
   .field_row {
     display: block;
-  }
-  .field_row .label {
-    margin-right: 0.25rem;
+    margin-top: 2rem;
   }
   .field_row input {
-    width: 50%;
-    min-width: 30rem;
+    width: 100%;
+    margin: 0.5rem 0;
+  }
+  
+
+  @media (min-width: 600px) {
+    .row {
+      grid-template-columns: 1fr 3fr;
+    }
+    #row_labels {
+      display: grid;
+    }
+    #new_word {
+      width: calc(25% - 1rem);
+    }
+    .field_row .label {
+      margin-right: 0.25rem;
+    }
+    .field_row input {
+      width: 50%;
+      min-width: 30rem;
+    }
+    #update_btn_text {
+      margin-left: 0.75rem;
+    }
   }
 </style>
