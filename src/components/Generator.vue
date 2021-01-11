@@ -1,11 +1,11 @@
 <template>
-  <section>
+  <section id="generator">
     <h1>
       <span v-bind:key="index" v-for="(word, index) in words">
         {{ word.value }}
       </span>
     </h1>
-    <button v-bind="buttonText" v-on:click="$emit('regenerate')">{{ buttonText }}</button>
+    <button v-on:click="$emit('regenerate')">{{ buttonText }}</button>
   </section>
 </template>
 
@@ -17,11 +17,20 @@ export default {
 </script>
 
 <style scoped>
+  #generator {
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
   h1 {
     font-size: 4rem;
     margin: 2rem 0;
     word-wrap: break-word;
     word-break: break-word;
+    text-align: center;
   }
 
   button {
