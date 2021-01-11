@@ -4,7 +4,7 @@
 > 
 > —_Max Wang_
 
-Make and share your own phrase parody generator (like weirdflex.me)
+Make and share your own phrase parody generator (like [weirdflex.me](https://weirdflex.me))
 
 Baby's first Vue project! Thanks to [Theo](https://tmb.sh/) for the idea of encoding data in base64 in the URL... Otherwise it would've been baby's first full-stack project 😳
 
