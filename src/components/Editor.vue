@@ -8,12 +8,15 @@
           <span class="label">Replacements</span>
         </div>
         <div class="row" v-bind:key="index" v-for="(word, index) in words">
-          <input type="text" v-model="word.default" class="default_word" />
+          <div class="default_word_container">
+            <button class="delete_word" v-on:click="$emit('deleteWord', word.default)">✕</button>
+            <input type="text" v-model="word.default" class="default_word" />
+          </div>
           <div class="synonyms_container">
             <div class="synonym" v-bind:key="idx" v-for="(synonym, idx) in word.synonyms">
               <button v-on:click="$emit('deleteSynonym', word.default, synonym)">{{ synonym }}</button>
             </div>
-            <input type="text" v-on:keyup.enter="addSynonym(word.default, $event.target)" name="" id="" placeholder="new synonym">
+            <input type="text" v-on:keyup.enter="addSynonym(word.default, $event.target)" placeholder="new synonym">
           </div>
         </div>
 
@@ -120,7 +123,7 @@ export default {
     margin-left: 0.25rem;
   }
   input.default_word {
-    min-width: 10rem;
+    width: 100%;
     margin-right: 0.6rem;
   }
 
@@ -140,6 +143,9 @@ export default {
     border: none;
     border-bottom: 1px solid #656565;
     outline: none;
+  }
+  .synonyms_container input {
+    font-size: 1rem;
   }
 
   #new_word {
@@ -197,5 +203,22 @@ export default {
   }
   .delete:hover {
     background: #f33;
+  }
+
+  .default_word_container {
+    display: flex;
+    align-items: flex-start;
+  }
+  .delete_word {
+    background: transparent;
+    border: none;
+    color: #f66;
+    font-size: 1rem;
+    margin-right: 0.5rem;
+    margin-top: 0.75rem;
+    cursor: pointer;
+  }
+  .delete_word:hover {
+    color: #f33;
   }
 </style>

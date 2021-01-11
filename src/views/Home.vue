@@ -1,7 +1,7 @@
 <template>
   <div>
     <Generator :words="config.words" :buttonText="config.buttonText" v-on:regenerate="regenerate" />
-    <Editor :words="config.words" :buttonText="config.buttonText" v-on:addWord="addWord" v-on:deleteSynonym="deleteSynonym" v-on:addSynonym="addSynonym" v-on:updateBtnText="updateBtnText" />
+    <Editor :words="config.words" :buttonText="config.buttonText" v-on:addWord="addWord" v-on:deleteSynonym="deleteSynonym" v-on:addSynonym="addSynonym" v-on:updateBtnText="updateBtnText" v-on:deleteWord="deleteWord" />
   </div>
 </template>
 
@@ -152,6 +152,9 @@ export default {
     },
     updateBtnText(newText) {
       this.config.buttonText = newText;
+    },
+    deleteWord(word) {
+      this.config.words = this.config.words.filter((item) => item.default != word);
     }
   }
 }
