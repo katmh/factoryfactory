@@ -1,7 +1,7 @@
 <template>
   <div>
     <Generator :words="config.words" :buttonText="config.buttonText" v-on:regenerate="regenerate" />
-    <Editor :words="config.words" :buttonText="config.buttonText" v-on:addWord="addWord" v-on:deleteSynonym="deleteSynonym" />
+    <Editor :words="config.words" :buttonText="config.buttonText" v-on:addWord="addWord" v-on:deleteSynonym="deleteSynonym" v-on:addSynonym="addSynonym" />
   </div>
 </template>
 
@@ -135,6 +135,17 @@ export default {
           value: item.value || item.default,
           synonyms: item.default == word ? (
             item.synonyms.filter((syn) => syn != synonym)
+          ) : item.synonyms
+        }
+      })
+    },
+    addSynonym(word, synonym) {
+      this.config.words = this.config.words.map((item) => {
+        return {
+          default: item.default,
+          value: item.value || item.default,
+          synonyms: item.default == word ? (
+            [...item.synonyms, synonym]
           ) : item.synonyms
         }
       })

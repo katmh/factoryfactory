@@ -13,7 +13,7 @@
             <div class="synonym" v-bind:key="idx" v-for="(synonym, idx) in word.synonyms">
               <button v-on:click="$emit('deleteSynonym', word.default, synonym)">{{ synonym }}</button>
             </div>
-            <input type="text" name="" id="" placeholder="new synonym">
+            <input type="text" v-on:keyup.enter="addSynonym(word.default, $event.target)" name="" id="" placeholder="new synonym">
           </div>
         </div>
 
@@ -41,7 +41,14 @@
 <script>
 export default {
   name: "Editor",
-  props: ["words", "buttonText"]
+  props: ["words", "buttonText"],
+
+  methods: {
+    addSynonym(word, target) {
+      this.$emit('addSynonym', word, target.value);
+      target.value = '';
+    }
+  }
 }
 </script>
 
