@@ -7,7 +7,11 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "home",
+    component: Home,
+  },
+  {
+    path: "/:base64",
+    props: true,
     component: Home,
   },
   {
@@ -23,12 +27,6 @@ const routes = [
     path: "/404",
     name: "404",
     component: () => import("../views/PageNotFound.vue"),
-  },
-  {
-    path: "/:productPath",
-    name: "Product",
-    props: true,
-    component: () => import("../views/Product.vue"),
   },
 ];
 

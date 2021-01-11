@@ -1,7 +1,7 @@
 <template>
-  <div class="home">
-    <Generator :words="words" :buttonText="buttonText" v-on:regenerate="regenerate" />
-    <Editor :words="words" :buttonText="buttonText" v-on:addWord="addWord" />
+  <div>
+    <Generator :words="config.words" :buttonText="config.buttonText" v-on:regenerate="regenerate" />
+    <Editor :words="config.words" :buttonText="config.buttonText" v-on:addWord="addWord" />
   </div>
 </template>
 
@@ -9,16 +9,24 @@
 import Generator from '../components/Generator.vue';
 import Editor from '../components/Editor.vue';
 
+// const encode = str => btoa(unescape(encodeURIComponent(str)));
+const decode = str => decodeURIComponent(escape(atob(str)));
 const randomItemFrom = (arr) => (arr[Math.floor(Math.random() * arr.length)])
+
 export default {
   name: 'Home',
+
+  props: ["base64"],
+
   components: {
     Generator,
     Editor
   },
-  data() {
+  
+  data () {
     return {
-      words: [
+      config: {
+        words: [
         {
           default: "weird",
           value: "weird",
@@ -79,12 +87,22 @@ export default {
           ]
         }
       ],
-      buttonText: "another one"
+        buttonText: "another one"
+      }
+      
     }
   },
+
+  created () {
+    // decode URL string and parse as array
+    if (this.base64) {
+      this.config.words = JSON.parse(decode(this.base64));
+    }
+  },
+
   methods: {
     regenerate: function() {
-      this.words = this.words.map((item) => {
+      this.config.words = this.config.words.map((item) => {
         return {
           default: item.default,
           value: randomItemFrom(item.synonyms) || item.default,
@@ -93,7 +111,7 @@ export default {
       })
     },
     addWord: function() {
-      this.words = [...this.words, {
+      this.config.words = [...this.config.words, {
         default: "",
         value: "",
         synonyms: []
@@ -102,30 +120,3 @@ export default {
   }
 }
 </script>
-
-<style>
-  p {
-    margin-top: 4rem;
-    font-size: 1.15rem;
-    color: #6e6a72;
-  }
-
-  p a {
-    color: #6e6a72;
-  }
-
-  @media (max-width: 700px) {
-    h1 {
-      font-size: 1.75rem;
-    }
-
-    .button {
-      font-size: 1rem;
-    }
-
-    p {
-      font-size: 0.8rem;
-      margin-top: 10rem;
-    }
-  }
-</style>
