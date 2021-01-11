@@ -1,42 +1,35 @@
 <template>
   <section id="editor">
-    <div class="flex">
-      <div id="editor_content">
-        <h2>Editor</h2>
-        <div class="row">
-          <span class="label">Default</span>
-          <span class="label">Replacements</span>
+    <div id="editor_content">
+      <h2>Editor</h2>
+      <div class="row">
+        <span class="label">Default</span>
+        <span class="label">Replacements</span>
+      </div>
+      <div class="row" v-bind:key="index" v-for="(word, index) in words">
+        <div class="default_word_container">
+          <button class="delete_word" v-on:click="$emit('deleteWord', word.default)">✕</button>
+          <input type="text" v-model="word.default" class="default_word" />
         </div>
-        <div class="row" v-bind:key="index" v-for="(word, index) in words">
-          <div class="default_word_container">
-            <button class="delete_word" v-on:click="$emit('deleteWord', word.default)">✕</button>
-            <input type="text" v-model="word.default" class="default_word" />
+        <div class="synonyms_container">
+          <div class="synonym" v-bind:key="idx" v-for="(synonym, idx) in word.synonyms">
+            <button v-on:click="$emit('deleteSynonym', word.default, synonym)">{{ synonym }}</button>
           </div>
-          <div class="synonyms_container">
-            <div class="synonym" v-bind:key="idx" v-for="(synonym, idx) in word.synonyms">
-              <button v-on:click="$emit('deleteSynonym', word.default, synonym)">{{ synonym }}</button>
-            </div>
-            <input type="text" v-on:keyup.enter="addSynonym(word.default, $event.target)" placeholder="new synonym">
-          </div>
-        </div>
-
-        <button id="new_word" class="btn" v-on:click="$emit('addWord')">+ Add Word</button>
-
-        <div class="field_row">
-          <label class="label" for="button_text">Button Text: </label>
-          <input name="button_text" type="text" v-model="buttonText" v-on:change="$emit('updateBtnText', buttonText)" />
-          <button id="update_btn_text" class="btn">Update</button>
-        </div>
-
-        <div class="field_row" id="url_container">
-          <label class="label" for="url">Shareable URL (not real yet): </label>
-          <input name="url" type="text" value="https://gener-inator.netlify.app/W3siZGVmYXVsdCI6ICJoZWxsbyIsICJ2YWx1ZSI6ICJoZWxsbyIsICJzeW5vbnltcyI6IFsiaGkiLCAiaGV5IiwgIndhc3N1cCIsICJ5byJdfSwgeyJkZWZhdWx0IjogIndvcmxkIiwgInZhbHVlIjogIndvcmxkIiwgInN5bm9ueW1zIjogWyJ1bml2ZXJzZSIsICJnbG9iZSIsICLkuJbnlYwiXX1d" readonly />
+          <input type="text" v-on:keyup.enter="addSynonym(word.default, $event.target)" placeholder="new synonym">
         </div>
       </div>
-      <div id="debugging">
-        <h2>Devtoolz so I can debug</h2>
-        <p>words:<br />{{ words }}</p>
-        <p>buttonText: {{ buttonText }}</p>
+
+      <button id="new_word" class="btn" v-on:click="$emit('addWord')">+ Add Word</button>
+
+      <div class="field_row">
+        <label class="label" for="button_text">Button Text: </label>
+        <input name="button_text" type="text" v-model="buttonText" v-on:change="$emit('updateBtnText', buttonText)" />
+        <button id="update_btn_text" class="btn">Update</button>
+      </div>
+
+      <div class="field_row" id="url_container">
+        <label class="label" for="url">Shareable URL: </label>
+        <input name="url" type="text" v-bind:value="url" readonly />
       </div>
     </div>
   </section>
@@ -45,7 +38,7 @@
 <script>
 export default {
   name: "Editor",
-  props: ["words", "buttonText"],
+  props: ["words", "buttonText", "url"],
 
   methods: {
     addSynonym(word, target) {

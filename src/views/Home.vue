@@ -1,7 +1,7 @@
 <template>
   <div>
     <Generator :words="config.words" :buttonText="config.buttonText" v-on:regenerate="regenerate" />
-    <Editor :words="config.words" :buttonText="config.buttonText" v-on:addWord="addWord" v-on:deleteSynonym="deleteSynonym" v-on:addSynonym="addSynonym" v-on:updateBtnText="updateBtnText" v-on:deleteWord="deleteWord" />
+    <Editor :words="config.words" :buttonText="config.buttonText" :url="url" v-on:addWord="addWord" v-on:deleteSynonym="deleteSynonym" v-on:addSynonym="addSynonym" v-on:updateBtnText="updateBtnText" v-on:deleteWord="deleteWord" />
   </div>
 </template>
 
@@ -31,7 +31,6 @@ export default {
           default: "weird",
           value: "weird",
           synonyms: [
-            "weird",
             "odd",
             "bizarre",
             "eccentric",
@@ -49,7 +48,6 @@ export default {
           default: "flex",
           value: "flex",
           synonyms: [
-            "flex",
             "boast",
             "brag",
             "braggadocio",
@@ -61,13 +59,12 @@ export default {
         {
           default: "but",
           value: "but",
-          synonyms: ["but", "yet"]
+          synonyms: ["yet"]
         },
         {
           default: "okay",
           value: "okay",
           synonyms: [
-            "okay",
             "acceptable",
             "satisfactory",
             "alright",
@@ -89,6 +86,12 @@ export default {
       ],
         buttonText: "get another one"
       }
+    }
+  },
+
+  computed: {
+    url: function() {
+      return `https://gener-inator.netlify.app/${encode(JSON.stringify(this.config))}`
     }
   },
 
