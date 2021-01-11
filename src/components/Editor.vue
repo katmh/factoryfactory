@@ -50,14 +50,12 @@ export default {
 
 <style scoped>
   #editor {
-    width: 95%;
-    margin-left: 2.5%;
+    width: 100%;
     background: #222;
     overflow: scroll;
     padding: 0 1.3rem 1.3rem;
-    border-bottom-left-radius: 0.5rem;
-    border-bottom-right-radius: 0.5rem;
   }
+
   .label {
     color: #ddd;
     font-weight: bold;

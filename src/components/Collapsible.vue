@@ -184,12 +184,20 @@ export default {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  border-top-right-radius: 0.5rem;
-  border-top-left-radius: 0.5rem;
-  width: 95%;
-  margin-left: 2.5%;
   bottom: 2.5%;
   padding: 1.3rem;
+}
+@media (min-width: 600px) {
+  #header {
+    border-top-right-radius: 0.5rem;
+    border-top-left-radius: 0.5rem;
+  }
+  .Collapsible {
+    width: 95%;
+    position: absolute;
+    bottom: 0;
+    left: 2.5%;
+  }
 }
 .label {
   color: #ddd;

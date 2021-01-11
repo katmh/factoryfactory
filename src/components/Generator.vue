@@ -18,7 +18,7 @@ export default {
 
 <style scoped>
   #generator {
-    height: 50vh;
+    padding: 10% 5%;
     display: flex;
     flex-direction: column;
     justify-content: center;
