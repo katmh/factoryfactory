@@ -1,7 +1,7 @@
 <template>
   <div>
     <Generator :words="config.words" :buttonText="config.buttonText" v-on:regenerate="regenerate" />
-    <Editor :words="config.words" :buttonText="config.buttonText" v-on:addWord="addWord" />
+    <Editor :words="config.words" :buttonText="config.buttonText" v-on:addWord="addWord" v-on:deleteSynonym="deleteSynonym" />
   </div>
 </template>
 
@@ -87,7 +87,7 @@ export default {
           ]
         }
       ],
-        buttonText: "another one"
+        buttonText: "get another one"
       }
       
     }
@@ -96,7 +96,18 @@ export default {
   created () {
     // decode URL string and parse as array
     if (this.base64) {
-      this.config.words = JSON.parse(decode(this.base64));
+      const arr = JSON.parse(decode(this.base64))
+      this.config.words = arr;
+    }
+  },
+
+  mounted () {
+    if (this.config) {
+      // TODO: push encoded this.config.words to URL
+
+      // console.log(encode(this.config.words));
+      // console.log(`this.config`, this.config);
+      // this.$router.push(encode(this.config.words));
     }
   },
 
@@ -116,6 +127,17 @@ export default {
         value: "",
         synonyms: []
       }]
+    },
+    deleteSynonym(word, synonym) {
+      this.config.words = this.config.words.map((item) => {
+        return {
+          default: item.default,
+          value: item.value || item.default,
+          synonyms: item.default == word ? (
+            item.synonyms.filter((syn) => syn != synonym)
+          ) : item.synonyms
+        }
+      })
     }
   }
 }

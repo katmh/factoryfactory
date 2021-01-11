@@ -10,8 +10,10 @@
         <div class="row" v-bind:key="index" v-for="(word, index) in words">
           <input type="text" v-model="word.default" class="default_word" />
           <div class="synonyms_container">
-            <input type="text" v-model="word.synonyms" class="synonyms" />
-            <button class="delete">X</button>
+            <div class="synonym" v-bind:key="idx" v-for="(synonym, idx) in word.synonyms">
+              <button v-on:click="$emit('deleteSynonym', word.default, synonym)">{{ synonym }}</button>
+            </div>
+            <input type="text" name="" id="" placeholder="new synonym">
           </div>
         </div>
 
@@ -89,9 +91,25 @@ export default {
 
   .synonyms_container {
     display: flex;
+    flex-wrap: wrap;
   }
-  input.synonyms {
-    width: 100%;
+  .synonym button {
+    padding: 0.4rem 0.5rem;
+    margin: 0.3rem 0.4rem 0.1rem 0;
+    border-radius: 0.25rem;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    background: #ddd;
+    transition: 0.1s;
+  }
+  .synonym button:hover {
+    background: #efefef;
+  }
+  .synonym button:after {
+    content: " ✕";
+    color: #f33;
+    margin-left: 0.25rem;
   }
   input.default_word {
     min-width: 10rem;
