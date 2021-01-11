@@ -1,42 +1,39 @@
 <template>
   <div>
-    Product Displayed: {{ product }}
+    <Generator :words="words" buttonText="gimme another one" v-on:regenerate="regenerate" />
   </div>
 </template>
 
 <script>
-const products = [
-  {
-    path: "example-product-1",
-    product: {name: "Product 1", price: 500}
-  },
-  {
-    path: "example-product-2",
-    product: {name: "Product 2", price: 1000}
-  },
-  {
-    path: "example-product-3",
-    product: {name: "Product 3", price: 1500}
-  }
-]
+import Generator from '../components/Generator.vue';
+
+// const encode = str => btoa(unescape(encodeURIComponent(str)));
+const decode = str => decodeURIComponent(escape(atob(str)));
+const randomItemFrom = (arr) => (arr[Math.floor(Math.random() * arr.length)])
+
 export default {
   props: ["productPath"],
+  components: {
+    Generator
+  },
   data () {
     return {
-      product: {}
+      words: {}
     }
   },
   created () {
-   // look up the product
-   const foundProduct = products.filter(product => {
-     return product.path === this.productPath
-   });
-    // if it exists, proceed
-    if (foundProduct.length > 0) {
-      this.product = foundProduct;
-    } else {
-      // otherwise, go to the 404 page
-      this.$router.push("/404");
+    // decode URL string and parse as array
+    this.words = JSON.parse(decode(this.productPath));
+  },
+  methods: {
+    regenerate: function() {
+      this.words = this.words.map((item) => {
+        return {
+          default: item.default,
+          value: randomItemFrom(item.synonyms) || item.default,
+          synonyms: item.synonyms 
+        }
+      })
     }
   }
 }
