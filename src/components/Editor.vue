@@ -17,11 +17,12 @@
           </div>
         </div>
 
-        <button id="new_word" v-on:click="$emit('addWord')">+ Add Word</button>
+        <button id="new_word" class="btn" v-on:click="$emit('addWord')">+ Add Word</button>
 
         <div class="field_row">
           <label class="label" for="button_text">Button Text: </label>
-          <input name="button_text" type="text" v-model="buttonText" />
+          <input name="button_text" type="text" v-model="buttonText" v-on:change="$emit('updateBtnText', buttonText)" />
+          <button id="update_btn_text" class="btn">Update</button>
         </div>
 
         <div class="field_row" id="url_container">
@@ -145,6 +146,9 @@ export default {
     display: block;
     width: calc(25% - 0.6rem);
     margin: 0.5rem 0 1rem;
+    
+  }
+  .btn {
     padding: 0.5rem;
     border-radius: 0.25rem;
     border: none;
@@ -155,6 +159,13 @@ export default {
     font-weight: bold;
     cursor: pointer;
     background: #8c3bff;
+    transition: 0.1s;
+  }
+  .btn:hover, .btn:active {
+    background: #7d22ff;
+  }
+  #update_btn_text {
+    margin-left: 0.75rem;
   }
 
   .field_row {
