@@ -1,4 +1,5 @@
 <template>
+  <!--adapted from https://github.com/glennflanagan/vue-collapsible-->
   <div class="Collapsible">
     <div id="header">
       <div class="flex">
@@ -210,6 +211,7 @@ h2 {
   padding: 0.3rem 0.4rem;
 }
 
+/* adapted from https://lugolabs.com/caret */
 .caret {
   position: relative;
   margin-top: -0.6rem;
