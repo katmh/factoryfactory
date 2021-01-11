@@ -1,46 +1,44 @@
 <template>
-  <section id="editor">
-    <div id="header">
-      <h2>Editor</h2>
-      <div id="url_container">
-        <label class="label" for="url">Shareable URL: </label>
-        <input id="url" name="url" type="text" v-bind:value="url" readonly />
+  <Collapsible :url="url">
+    <section id="editor">
+      <div class="row">
+        <span class="label">Default</span>
+        <span class="label">Replacements</span>
       </div>
-    </div>
 
-    <div class="row">
-      <span class="label">Default</span>
-      <span class="label">Replacements</span>
-    </div>
-
-    <div class="row" v-bind:key="index" v-for="(word, index) in words">
-      <div class="default_word_container">
-        <button class="delete_word" v-on:click="$emit('deleteWord', word.default)">✕</button>
-        <input type="text" v-model="word.default" class="default_word" />
-      </div>
-      <div class="synonyms_container">
-        <div class="synonym" v-bind:key="idx" v-for="(synonym, idx) in word.synonyms">
-          <button v-on:click="$emit('deleteSynonym', word.default, synonym)">{{ synonym }}</button>
+      <div class="row" v-bind:key="index" v-for="(word, index) in words">
+        <div class="default_word_container">
+          <button class="delete_word" v-on:click="$emit('deleteWord', word.default)">✕</button>
+          <input type="text" v-model="word.default" class="default_word" />
         </div>
-        <input type="text" v-on:keyup.enter="addSynonym(word.default, $event.target)" placeholder="new synonym">
+        <div class="synonyms_container">
+          <div class="synonym" v-bind:key="idx" v-for="(synonym, idx) in word.synonyms">
+            <button v-on:click="$emit('deleteSynonym', word.default, synonym)">{{ synonym }}</button>
+          </div>
+          <input type="text" v-on:keyup.enter="addSynonym(word.default, $event.target)" placeholder="new synonym">
+        </div>
       </div>
-    </div>
 
-    <button id="new_word" class="btn" v-on:click="$emit('addWord')">+ Add Word</button>
+      <button id="new_word" class="btn" v-on:click="$emit('addWord')">+ Add Word</button>
 
-    <div class="field_row">
-      <label class="label" for="button_text">Button Text: </label>
-      <input name="button_text" type="text" v-model="buttonText" v-on:change="$emit('updateBtnText', buttonText)" />
-      <button id="update_btn_text" class="btn">Update</button>
-    </div>
-  </section>
+      <div class="field_row">
+        <label class="label" for="button_text">Button Text: </label>
+        <input name="button_text" type="text" v-model="buttonText" v-on:change="$emit('updateBtnText', buttonText)" />
+        <button id="update_btn_text" class="btn">Update</button>
+      </div>
+    </section>
+  </Collapsible>
 </template>
 
 <script>
+import Collapsible from './Collapsible.vue';
+
 export default {
   name: "Editor",
   props: ["words", "buttonText", "url"],
-
+  components: {
+    Collapsible
+  },
   methods: {
     addSynonym(word, target) {
       this.$emit('addSynonym', word, target.value);
@@ -52,15 +50,12 @@ export default {
 
 <style scoped>
   #editor {
-    position: absolute;
     width: 95%;
-    left: 2.5%;
-    bottom: 2.5%;
-    height: 50vh;
+    margin-left: 2.5%;
     background: #222;
     overflow: scroll;
     padding: 1.3rem;
-    border-radius: 0.5rem;
+
   }
   .label {
     color: #ddd;
