@@ -9,7 +9,7 @@
 import Generator from '../components/Generator.vue';
 import Editor from '../components/Editor.vue';
 
-// const encode = str => btoa(unescape(encodeURIComponent(str)));
+const encode = str => btoa(unescape(encodeURIComponent(str)));
 const decode = str => decodeURIComponent(escape(atob(str)));
 const randomItemFrom = (arr) => (arr[Math.floor(Math.random() * arr.length)])
 
@@ -89,26 +89,21 @@ export default {
       ],
         buttonText: "get another one"
       }
-      
     }
   },
 
   created () {
     // decode URL string and parse as array
     if (this.base64) {
-      const arr = JSON.parse(decode(this.base64))
-      this.config.words = arr;
+      const obj = JSON.parse(decode(this.base64))
+      this.config = obj;
     }
-  },
 
-  mounted () {
-    if (this.config) {
-      // TODO: push encoded this.config.words to URL
-
-      // console.log(encode(this.config.words));
-      // console.log(`this.config`, this.config);
-      // this.$router.push(encode(this.config.words));
-    }
+    history.pushState(
+      {},
+      null,
+      encode(JSON.stringify(this.config))
+    )
   },
 
   methods: {
@@ -127,6 +122,7 @@ export default {
         value: "",
         synonyms: []
       }]
+      this.updateURL();
     },
     deleteSynonym(word, synonym) {
       this.config.words = this.config.words.map((item) => {
@@ -138,6 +134,7 @@ export default {
           ) : item.synonyms
         }
       })
+      this.updateURL();
     },
     addSynonym(word, synonym) {
       this.config.words = this.config.words.map((item) => {
@@ -149,12 +146,19 @@ export default {
           ) : item.synonyms
         }
       })
+      this.updateURL();
     },
     updateBtnText(newText) {
       this.config.buttonText = newText;
+      this.updateURL();
     },
     deleteWord(word) {
       this.config.words = this.config.words.filter((item) => item.default != word);
+      this.updateURL();
+    },
+    updateURL() {
+      const encoded = encode(JSON.stringify(this.config));
+      history.pushState({}, null, encoded);
     }
   }
 }

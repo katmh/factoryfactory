@@ -7,10 +7,12 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
+    name: "home",
     component: Home,
   },
   {
     path: "/:base64",
+    name: "dynamic",
     props: true,
     component: Home,
   },
