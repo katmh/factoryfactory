@@ -92,7 +92,7 @@ export default {
 
   computed: {
     url: function() {
-      return `https://gener-inator.netlify.app/${encode(JSON.stringify(this.config))}`
+      return `https://factoryfactory.netlify.app/${encode(JSON.stringify(this.config))}`
     }
   },
 
