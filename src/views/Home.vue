@@ -23,6 +23,7 @@ export default {
     Editor
   },
   
+  // default config
   data () {
     return {
       config: {
@@ -102,6 +103,7 @@ export default {
       this.config = obj;
     }
 
+    // website.com/ index -> website.com/[base64 encoding of default config]
     history.pushState(
       {},
       null,
@@ -114,7 +116,8 @@ export default {
       this.config.words = this.config.words.map((item) => {
         return {
           default: item.default,
-          value: randomItemFrom(item.synonyms) || item.default,
+          // make sure we can pick default word, w/o redundantly needing to include it in synonyms list
+          value: randomItemFrom([...item.synonyms, item.default]) || item.default,
           synonyms: item.synonyms 
         }
       })
