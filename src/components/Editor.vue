@@ -1,33 +1,61 @@
 <template>
   <details>
     <EditorHeader :url="url" />
-    <section id="editor">
-      <div id="row_labels" class="row">
-        <span class="label">Default</span>
-        <span class="label">Replacements</span>
-      </div>
-
-      <div class="row" v-bind:key="index" v-for="(word, index) in words">
+    <div class="row" v-bind:key="index" v-for="(word, index) in words">
+      <button class="delete_word" v-on:click="$emit('deleteWord', word.default)">
+        ✕
+      </button>
+      <div class="word">
         <div class="default_word_container">
-          <button class="delete_word" v-on:click="$emit('deleteWord', word.default)">✕</button>
-          <input type="text" v-model="word.default" class="default_word" />
+          <input
+            class="default_word"
+            type="text"
+            v-model="word.default"
+            placeholder="default word(s)"
+          />
         </div>
         <div class="synonyms_container">
-          <div class="synonym" v-bind:key="idx" v-for="(synonym, idx) in word.synonyms">
-            <button v-on:click="$emit('deleteSynonym', word.default, synonym)">{{ synonym }}</button>
-          </div>
-          <input type="text" v-on:keyup.enter="addSynonym(word.default, $event.target)" placeholder="new synonym">
+          <button
+            class="synonym"
+            v-for="(synonym, idx) in word.synonyms"
+            v-bind:key="idx"
+            v-on:click="$emit('deleteSynonym', word.default, synonym)"
+          >
+            {{ synonym }}
+          </button>
+          <input
+            class="new_synonym"
+            type="text"
+            v-on:keyup.enter="addSynonym(word.default, $event.target)"
+            placeholder="new synonym"
+          />
         </div>
       </div>
+    </div>
 
-      <button id="new_word" class="btn" v-on:click="$emit('addWord')">+ Add Word</button>
+    <button
+      id="new_word"
+      class="btn"
+      v-on:click="$emit('addWord')"
+    >
+      + Add Word
+    </button>
 
-      <div class="field_row">
-        <label class="label" for="button_text">Button Text: </label>
-        <input name="button_text" type="text" v-model="buttonText" v-on:change="$emit('updateBtnText', buttonText)" />
-        <button id="update_btn_text" class="btn">Update</button>
-      </div>
-    </section>
+    <div class="btn_text_container">
+      <label class="btn_text_label" for="button_text">
+        Button Text:
+      </label>
+      <input
+        class="btn_text"
+        name="button_text"
+        type="text"
+        v-model="buttonText"
+        v-on:change="$emit('updateBtnText', buttonText)"
+      />
+      <button id="update_btn_text" class="btn">
+        Update
+      </button>
+    </div>
   </details>
 </template>
 
@@ -54,9 +82,7 @@ details {
   width: 100%;
   background: #222;
   overflow: scroll;
-  padding: 0 1.3rem 1.3rem;
-  border-top-right-radius: 0.5rem;
-  border-top-left-radius: 0.5rem;
+  padding: 0 1rem;
 }
 
 @media (min-width: 600px) {
@@ -67,108 +93,111 @@ details {
     left: 2.5%;
     max-height: 60vh;
     overflow: scroll;
+    border-top-right-radius: 0.5rem;
+    border-top-left-radius: 0.5rem;
   }
 }
 
-.label {
-  color: #ddd;
-  font-weight: bold;
-  margin: 0.5rem 0 0.25rem;
-}
-
-h2 {
-  color: #eee;
-  margin-bottom: 0.5rem;
-  text-transform: uppercase;
-  font-size: 1.25rem;
-}
-
-
 .row {
-  display: grid;
-  margin-bottom: 1rem;
-}
-#row_labels {
-  display: none;
-}
-.row input, .field_row input {
-  margin: 0.3rem 0;
-  font-size: 1.15rem;
-  padding: 0.4rem 0.7rem;
-}
-.synonyms_container input {
-  font-size: 1rem;
-}
-
-
-.default_word_container {
   display: flex;
-  align-items: flex-start;
-  margin-right: 1rem;
+  margin-bottom: 1.25rem;
+  justify-items: flex-start;
 }
+.row:first-of-type {
+  margin-top: 1.5rem;
+}
+.word {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .delete_word {
   background: transparent;
   border: none;
   color: #f66;
   font-size: 1rem;
   margin-right: 0.5rem;
-  margin-top: 0.75rem;
+  margin-top: 0.5rem;
   cursor: pointer;
+  align-self: flex-start;
 }
 .delete_word:hover {
   color: #f33;
 }
-input {
-  border-bottom: 1px solid #656565;
-}
-input.default_word {
-  width: 100%;
+.default_word, .btn_text {
+  padding: 0.4rem 0.6rem;
+  font-size: 1.15rem;
 }
 
+.default_word_container {
+  margin-right: 1rem;
+  width: 100%;
+}
 
 .synonyms_container {
   display: flex;
   flex-wrap: wrap;
+  margin-top: 0.75rem;
 }
-.synonym button {
+.synonym {
   padding: 0.4rem 0.5rem;
-  margin: 0.3rem 0.4rem 0.1rem 0;
+  margin: 0rem 0.4rem 0.4rem 0;
   border-radius: 0.25rem;
   border: none;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 0.95rem;
   background: #ddd;
   transition: 0.1s;
+  display: table;
+  line-height: 1;
+  height: 1.8rem;
 }
-.synonym button:hover {
+.synonym:hover {
   background: #efefef;
 }
-.synonym button:after {
+.synonym:after {
   content: " ✕";
   color: #f33;
-  margin-left: 0.25rem;
+  margin-left: 0.15rem;
 }
-
+.new_synonym {
+  height: 1.8rem;
+  padding: 0.4rem 0.5rem;
+}
 
 #new_word {
   display: block;
-  margin: 0.5rem 0 1rem;
+  margin: 0.5rem 0 1.5rem;
 }
 
-
-.field_row {
+.btn_text_container {
   display: block;
-  margin-top: 2rem;
+  margin: 2.5rem 0 1.5rem;
 }
-.field_row input {
-  width: 100%;
-  margin: 0.5rem 0;
+.btn_text_label {
+  color: #ddd;
+  font-weight: bold;
+  margin: 0.5rem 0 0.25rem;
 }
-
+.btn_text {
+  margin-left: 0.5rem;
+}
+.btn_text, .update_btn_text {
+  vertical-align: top;
+}
 
 @media (min-width: 600px) {
   .row {
     grid-template-columns: 1fr 3fr;
+  }
+  .word {
+    flex-wrap: nowrap;
+  }
+  .default_word_container {
+    width: auto;
+  }
+  .synonyms_container {
+    margin-top: 0;
   }
   #row_labels {
     display: grid;
@@ -184,7 +213,7 @@ input.default_word {
     min-width: 30rem;
   }
   #update_btn_text {
-    margin-left: 0.75rem;
+    margin-left: 0.5rem;
   }
 }
 </style>

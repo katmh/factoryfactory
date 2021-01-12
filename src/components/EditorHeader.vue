@@ -30,7 +30,7 @@ export default {
 summary {
   background: #222;
   color: #eee;
-  padding: 1rem 0 0.5rem;
+  padding: 1rem 0;
   cursor: pointer;
 }
 
