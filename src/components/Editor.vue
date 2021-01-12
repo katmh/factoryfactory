@@ -26,7 +26,7 @@
           <input
             class="new_synonym"
             type="text"
-            v-on:keyup.enter="addSynonym(word.default, $event.target)"
+            v-on:keyup.enter="addSynonym(word, $event.target)"
             placeholder="new synonym"
           />
         </div>
@@ -70,8 +70,17 @@ export default {
   },
   methods: {
     addSynonym(word, target) {
-      this.$emit('addSynonym', word, target.value);
+      if (target.value === "") {
+        target.style.border = "1px solid red";
+        throw "Synonym is empty";
+      }
+      if (word.synonyms.includes(target.value)) {
+        target.style.border = "1px solid red";
+        throw "Synonym is already added";
+      }
+      this.$emit('addSynonym', word.default, target.value);
       target.value = '';
+      target.style.border = "1px solid transparent";
     }
   }
 }
@@ -185,6 +194,9 @@ details {
 .btn_text, .update_btn_text {
   vertical-align: top;
 }
+#update_btn_text {
+  margin-left: 0.5rem;
+}
 
 @media (min-width: 600px) {
   .row {
@@ -211,9 +223,6 @@ details {
   .field_row input {
     width: 50%;
     min-width: 30rem;
-  }
-  #update_btn_text {
-    margin-left: 0.5rem;
   }
 }
 </style>
