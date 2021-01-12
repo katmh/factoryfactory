@@ -5,7 +5,7 @@
       <label id="url_label" for="url">Shareable URL: </label>
       <div id="url_and_btn">
         <input id="url_input" name="url" type="text" v-bind:value="url" readonly />
-        <button id="url_btn" @click="copy">Copy</button>
+        <button id="url_btn" class="btn" @click="copy">Copy</button>
       </div>
     </div>
   </summary>
@@ -17,7 +17,7 @@ export default {
   props: ["url"],
   methods: {
     copy() {
-      const field = document.getElementById("url");
+      const field = document.getElementById("url_input");
       field.select();
       field.setSelectionRange(0, 999999);
       document.execCommand("copy");
@@ -51,13 +51,17 @@ h2 {
 
 #url_input {
   width: 100%;
-  height: 1.5rem;
-  font-size: 0.95rem;
   margin-right: 0.5rem;
 }
 
 #url_btn {
-  height: 1.5rem;
+  font-size: 0.95rem;
+  padding: 0.2rem 0.4rem;
+}
+
+#url_input, #url_btn {
+  font-size: 1rem;
+  height: 2rem;
 }
 
 #url_and_btn {
@@ -78,6 +82,10 @@ h2 {
   #url_input {
     width: 15rem;
     margin: 0 0.5rem 0 0.25rem;
+  }
+  #url_input, #url_btn {
+    font-size: 0.95rem;
+    height: 1.5rem;
   }
   #url_and_btn {
     display: inline-block;

@@ -113,7 +113,7 @@ details {
   justify-items: flex-start;
 }
 .row:first-of-type {
-  margin-top: 1.5rem;
+  margin-top: 0.5rem;
 }
 .word {
   display: flex;
@@ -201,6 +201,9 @@ details {
 @media (min-width: 600px) {
   .row {
     grid-template-columns: 1fr 3fr;
+  }
+  .row:first-of-type {
+    margin-top: 1rem;
   }
   .word {
     flex-wrap: nowrap;
