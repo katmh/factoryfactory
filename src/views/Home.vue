@@ -92,25 +92,11 @@ export default {
 
   metaInfo() {
     return {
-      title: 'phrase factory factory',
       titleTemplate: () => {
         const words = JSON.parse(JSON.stringify(this.config.words));
         const phrase = words.map((item) => item.default).join(" ");
         return phrase ? `"${phrase}" | phrase factory factory` : 'phrase factory factory'
-      },
-      htmlAttrs: {
-        lang: 'en',
-        amp: true
-      },
-      meta: [
-        { name: 'description', content: 'Make and share your own phrase parody generator (like weirdflex.me)' },
-        { name: 'og:title', content: 'phrase factory factory' },
-        { name: 'og:description', content: 'Make and share your own phrase parody generator (like weirdflex.me)' },
-        { name: 'og:url', content: 'https://factoryfactory.netlify.app' },
-        { name: 'twitter:card', content: 'summary_large_image' },
-        { name: 'twitter:image', content: 'https://factoryfactory.netlify.app/screenshot.jpg' },
-      ],
-      link: [ { rel: 'icon', href: "/favicon.ico" } ]
+      }
     }
   },
 
