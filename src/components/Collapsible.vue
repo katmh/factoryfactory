@@ -3,7 +3,6 @@
   <div class="Collapsible">
     <div id="header">
       <div class="flex">
-        <h2>Customize</h2>
         <button
           @click.prevent="handleClick"
           type="button"
@@ -14,12 +13,12 @@
             'Collapsible__trigger--transitioning': transitioning,
           }"
         >
+          <h2>Customize</h2>
           <slot name="trigger" v-if="open">
             <span class="Collapsible__triggerLabel">
               <div class="caret" :class="!open ? `closed` : `open`"></div>
             </span>
           </slot>
-
           <slot name="closedTrigger" v-if="!open">
             <slot name="trigger">
               <span class="Collapsible__triggerLabel">
@@ -214,6 +213,7 @@ h2 {
   text-transform: uppercase;
   font-size: 1.25rem;
   margin-right: 0.5rem;
+  display: inline-block;
 }
 #url {
   width: 100%;
@@ -226,7 +226,8 @@ h2 {
 /* adapted from https://lugolabs.com/caret */
 .caret {
   position: relative;
-  margin-top: -0.6rem;
+  top: -0.8rem;
+  display: inline-block;
 }
 .caret:before {
   content: '';
