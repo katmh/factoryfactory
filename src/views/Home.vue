@@ -85,7 +85,7 @@ export default {
           ]
         }
       ],
-        buttonText: "get another one"
+        buttonText: "get another flex 💪"
       }
     }
   },
