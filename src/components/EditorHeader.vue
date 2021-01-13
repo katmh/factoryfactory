@@ -1,13 +1,6 @@
 <template>
   <summary>
     <h2>Customize</h2>
-    <div id="url_container">
-      <label id="url_label" for="url">Shareable URL: </label>
-      <div id="url_and_btn">
-        <input id="url_input" name="url" type="text" v-bind:value="url" readonly />
-        <button id="url_btn" class="btn" @click="copy">Copy</button>
-      </div>
-    </div>
   </summary>
 </template>
 
