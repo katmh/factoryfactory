@@ -1,6 +1,6 @@
 <template>
   <details>
-    <EditorHeader :url="url" />
+    <EditorHeader />
     <div class="row" v-bind:key="index" v-for="(word, index) in words">
       <button class="delete_word" v-on:click="$emit('deleteWord', word.default)">
         ✕
@@ -64,7 +64,7 @@ import EditorHeader from './EditorHeader.vue';
 
 export default {
   name: "Editor",
-  props: ["words", "buttonText", "url"],
+  props: ["words", "buttonText"],
   components: {
     EditorHeader
   },

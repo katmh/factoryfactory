@@ -7,7 +7,6 @@
 <script>
 export default {
   name: 'EditorHeader',
-  props: ["url"],
   methods: {
     copy() {
       const field = document.getElementById("url_input");
