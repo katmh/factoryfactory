@@ -1,13 +1,14 @@
 <template>
   <div>
     <Generator :words="config.words" :buttonText="config.buttonText" v-on:regenerate="regenerate" />
-    <Editor :words="config.words" :buttonText="config.buttonText" :url="url" v-on:addWord="addWord" v-on:deleteSynonym="deleteSynonym" v-on:addSynonym="addSynonym" v-on:updateBtnText="updateBtnText" v-on:deleteWord="deleteWord" />
+    <Editor :words="config.words" :buttonText="config.buttonText" :url="url" v-on:addWord="addWord" v-on:deleteSynonym="deleteSynonym" v-on:addSynonym="addSynonym" v-on:updateBtnText="updateBtnText" v-on:deleteWord="deleteWord" v-on:getURL="getURL" />
   </div>
 </template>
 
 <script>
 import Generator from '../components/Generator.vue';
 import Editor from '../components/Editor.vue';
+import axios from "axios";
 
 const encode = str => btoa(unescape(encodeURIComponent(str)));
 const decode = str => decodeURIComponent(escape(atob(str)));
@@ -175,6 +176,15 @@ export default {
     updateURL() {
       const encoded = encode(JSON.stringify(this.config));
       history.pushState({}, null, encoded);
+    },
+    makeURL() {
+      console.log("Sending POST request to make URL");
+      axios.post("/.netlify/functions/makeConfig", {
+        config: this.config,
+        buttonText: this.buttonText
+      })
+        .then(e => console.log(e))
+      console.log("Request done");
     }
   }
 }

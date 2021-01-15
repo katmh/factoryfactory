@@ -1,6 +1,6 @@
 <template>
   <details>
-    <EditorHeader :url="url" />
+    <EditorHeader :url="url" v-on:getURL="getURL" />
     <div class="row" v-bind:key="index" v-for="(word, index) in words">
       <button class="delete_word" v-on:click="$emit('deleteWord', word.default)">
         ✕

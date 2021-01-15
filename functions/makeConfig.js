@@ -1,6 +1,6 @@
 const { default: axios } = require("axios");
 
-exports.handler = async function(event, context) {
+exports.handler = async function(event) {
   try {
     const { words, buttonText } = JSON.parse(event.body);
     return axios
