@@ -178,13 +178,12 @@ export default {
       history.pushState({}, null, encoded);
     },
     makeURL() {
-      console.log("Sending POST request to make URL");
       axios.post("/.netlify/functions/makeConfig", {
         words: this.config.words,
         buttonText: this.config.buttonText
       })
-        .then(e => console.log(e.response))
-      console.log("Request done");
+        .then((res) => console.log(res.data))
+        .catch((e) => console.log(e));
     }
   }
 }
