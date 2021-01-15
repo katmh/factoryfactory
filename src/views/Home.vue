@@ -25,6 +25,14 @@ export default {
   data () {
     return {
       config: {
+        words: [{
+          default: "loading...",
+          value: "loading...",
+          synonyms: ["buffering...", "preparing..."]
+        }],
+        buttonText: "get another one"
+      },
+      defaultConfig: {
         words: [
         {
           default: "weird",
@@ -107,10 +115,8 @@ export default {
         .then((data) => {
           const obj = JSON.parse(data);
           console.log(obj);
-          this.config.words = obj.words || this.config.words;
-          console.log(obj.words, this.config.words);
-          this.config.buttonText = obj.buttonText || this.config.buttonText;
-          console.log(obj.buttonText, this.config.buttonText);
+          this.config.words = obj.words || this.defaultconfig.words;
+          this.config.buttonText = obj.buttonText || this.defaultconfig.buttonText;
         })
         .catch((e) => console.log(e));
     }
