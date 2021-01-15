@@ -101,13 +101,16 @@ export default {
   created () {
     // get and set config based on ID in URL
     if (this.id) {
-      const path = `/.netlify/functions/getConfig?id=${this.id}`;
+      const path = `https://6001bcc19c39190007aecffe--factoryfactory.netlify.app/.netlify/functions/getConfig?id=${this.id}`;
       fetch(path)
         .then((res) => res.text())
         .then((data) => {
           const obj = JSON.parse(data);
+          console.log(obj);
           this.config.words = obj.words || this.config.words;
+          console.log(obj.words, this.config.words);
           this.config.buttonText = obj.buttonText || this.config.buttonText;
+          console.log(obj.buttonText, this.config.buttonText);
         })
         .catch((e) => console.log(e));
     }
