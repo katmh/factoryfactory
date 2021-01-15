@@ -8,7 +8,6 @@
 <script>
 import Generator from '../components/Generator.vue';
 import Editor from '../components/Editor.vue';
-import axios from "axios";
 
 const encode = str => btoa(unescape(encodeURIComponent(str)));
 const decode = str => decodeURIComponent(escape(atob(str)));
@@ -178,12 +177,17 @@ export default {
       history.pushState({}, null, encoded);
     },
     makeURL() {
-      axios.post("/.netlify/functions/makeConfig", {
-        words: this.config.words,
-        buttonText: this.config.buttonText
+      fetch("/.netlify/functions/makeConfig", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          words: this.config.words,
+          buttonText: this.config.buttonText
+        }),
       })
-        .then((res) => console.log(res.data))
-        .catch((e) => console.error(e));
+        .then((res) => res.json())
+        .then((data) => console.log(data))
+        .catch((e) => console.error(e.toString()));
     }
   }
 }
