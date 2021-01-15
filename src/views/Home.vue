@@ -106,7 +106,7 @@ export default {
     }
   },
 
-  beforeCreate () {
+  created () {
     // get and set config based on ID in URL
     if (this.id) {
       const path = `/.netlify/functions/getConfig?id=${this.id}`;
