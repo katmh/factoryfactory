@@ -106,7 +106,7 @@ export default {
     }
   },
 
-  created () {
+  beforeCreate () {
     // get and set config based on ID in URL
     if (this.id) {
       const path = `/.netlify/functions/getConfig?id=${this.id}`;
@@ -119,6 +119,8 @@ export default {
           this.config.buttonText = obj.buttonText || this.defaultconfig.buttonText;
         })
         .catch((e) => console.log(e));
+    } else {
+      this.config = this.defaultConfig;
     }
   },
 
