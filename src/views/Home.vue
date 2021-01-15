@@ -188,7 +188,7 @@ export default {
         headers: { "Content-Type": "application/json" },
         body,
       })
-        .then((res) => res.text())
+        .then((res) => res.json())
         .then((data) => console.log(data))
         .catch((e) => console.error(e.toString()));
     }
