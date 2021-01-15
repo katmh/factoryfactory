@@ -105,8 +105,11 @@ export default {
       fetch(path)
         .then((res) => res.text())
         .then((data) => {
+          console.log(data);
           this.config.words = data.words || this.config.words;
+          console.log(data.words, this.config.words);
           this.config.buttonText = data.buttonText || this.config.buttonText;
+          console.log(data.buttonText, this.config.buttonText);
         })
         .catch((e) => console.log(e));
     }
