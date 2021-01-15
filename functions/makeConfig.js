@@ -12,14 +12,18 @@ exports.handler = async function(event, context) {
   const id = crypto.randomBytes(6).toString("hex");
 
   // send POST request to write new config object
-  axios.post("https://jsonbox.io/box_23ae45336b05b999ce70", {
-    _id: id,
-    words,
-    buttonText,
-  });
+  let res;
+  axios
+    .post("https://jsonbox.io/box_23ae45336b05b999ce70", {
+      _id: id,
+      words,
+      buttonText,
+    })
+    .then((response) => (res = response))
+    .catch((error) => (res = error));
 
   return {
     statusCode: 200,
-    body: JSON.stringify({ id: id }),
+    body: JSON.stringify({ id, res }),
   };
 };
