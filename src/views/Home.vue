@@ -183,7 +183,7 @@ export default {
         buttonText: this.config.buttonText
       })
         .then((res) => console.log(res.data))
-        .catch((e) => console.log(e));
+        .catch((e) => console.error(e));
     }
   }
 }

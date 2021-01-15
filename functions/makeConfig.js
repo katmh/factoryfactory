@@ -8,9 +8,9 @@ exports.handler = async function(event) {
         words,
         buttonText,
       })
-      .then((resp) => ({ statusCode: 200, body: JSON.stringify({ resp }) }))
-      .catch((e) => ({ statusCode: 500, body: e.toString() }));
+      .then((res) => ({ statusCode: 200, body: JSON.stringify({ res }) }))
+      .catch((e) => ({ statusCode: 503, body: e.toString() }));
   } catch (e) {
-    return { statusCode: 500, body: e.toString() };
+    return { statusCode: 501, body: e.toString() };
   }
 };
