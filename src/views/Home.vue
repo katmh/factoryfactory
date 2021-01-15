@@ -114,7 +114,6 @@ export default {
         .then((res) => res.text())
         .then((data) => {
           const obj = JSON.parse(data);
-          console.log(obj);
           this.config.words = obj.words || this.defaultconfig.words;
           this.config.buttonText = obj.buttonText || this.defaultconfig.buttonText;
         })
