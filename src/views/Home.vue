@@ -177,13 +177,16 @@ export default {
       history.pushState({}, null, encoded);
     },
     makeURL() {
-      fetch("/.netlify/functions/makeConfig", {
+      const body = JSON.stringify({
+        words: this.config.words,
+        buttonText: this.config.buttonText
+      });
+      console.log(body);
+      const path = "/.netlify/functions/makeConfig"
+      fetch(path, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          words: this.config.words,
-          buttonText: this.config.buttonText
-        }),
+        body,
       })
         .then((res) => res.json())
         .then((data) => console.log(data))
