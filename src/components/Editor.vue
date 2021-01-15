@@ -2,7 +2,7 @@
   <div>
     <div class="share-dialog">
       <header>
-        <h3 class="dialog-title">Share “{{ phrase }}”</h3>
+        <h3 class="dialog-title" @click="makeURL">Share “{{ phrase }}”</h3>
         <button class="close-button"><svg><use href="#close"></use></svg></button>
       </header>
       
