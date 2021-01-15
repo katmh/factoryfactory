@@ -1,29 +1,16 @@
 const { default: axios } = require("axios");
 
-var crypto = require("crypto");
-
 exports.handler = async function(event, context) {
-  // TODO: see if there's already an item with this config
-  // if so, return that item's ID
-
-  const { words, buttonText } = JSON.parse(event.body);
-
-  // generate 12-digit ID
-  const id = crypto.randomBytes(6).toString("hex");
-
-  // send POST request to write new config object
-  let res;
-  axios
-    .post("https://jsonbox.io/box_23ae45336b05b999ce70", {
-      _id: id,
-      words,
-      buttonText,
-    })
-    .then((response) => (res = response))
-    .catch((error) => (res = error));
-
-  return {
-    statusCode: 200,
-    body: JSON.stringify({ id, res }),
-  };
+  try {
+    const { words, buttonText } = JSON.parse(event.body);
+    return axios
+      .post("https://jsonbox.io/box_23ae45336b05b999ce70", {
+        words,
+        buttonText,
+      })
+      .then((resp) => ({ statusCode: 200, body: JSON.stringify({ resp }) }))
+      .catch((e) => ({ statusCode: 500, body: e.toString() }));
+  } catch (e) {
+    return { statusCode: 500, body: e.toString() };
+  }
 };
