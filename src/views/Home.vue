@@ -101,7 +101,9 @@ export default {
   created () {
     // get config based on ID in URL
     if (this.id) {
-      fetch("/.netlify/functions/getConfig", JSON.stringify({ id: this.id }))
+      fetch("/.netlify/functions/getConfig", {
+        body: JSON.stringify({ id: this.id })
+      })
         .then((res) => res.json())
         .then((data) => console.log(data))
         .catch((e) => console.error(e.toString()));
@@ -162,7 +164,6 @@ export default {
         words: this.config.words,
         buttonText: this.config.buttonText
       });
-      console.log(body);
       const path = "/.netlify/functions/makeConfig"
       fetch(path, {
         method: "POST",
