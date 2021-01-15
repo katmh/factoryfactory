@@ -1,7 +1,7 @@
 <template>
   <div>
     <Generator :words="config.words" :buttonText="config.buttonText" v-on:regenerate="regenerate" />
-    <Editor :words="config.words" :buttonText="config.buttonText" :url="url" v-on:addWord="addWord" v-on:deleteSynonym="deleteSynonym" v-on:addSynonym="addSynonym" v-on:updateBtnText="updateBtnText" v-on:deleteWord="deleteWord" v-on:getURL="getURL" />
+    <Editor :words="config.words" :buttonText="config.buttonText" :url="url" v-on:addWord="addWord" v-on:deleteSynonym="deleteSynonym" v-on:addSynonym="addSynonym" v-on:updateBtnText="updateBtnText" v-on:deleteWord="deleteWord" v-on:makeURL="makeURL" />
   </div>
 </template>
 
