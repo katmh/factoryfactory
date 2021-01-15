@@ -8,7 +8,7 @@ exports.handler = async function(event) {
         words,
         buttonText,
       })
-      .then((res) => ({ statusCode: 200, data: res }))
+      .then((res) => ({ statusCode: 200, data: res.data }))
       .catch((e) => ({ statusCode: 503, error: e.toString() }));
   } catch (e) {
     return { statusCode: 501, error: e.toString() };
