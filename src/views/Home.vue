@@ -99,12 +99,17 @@ export default {
   },
 
   created () {
-    // get config based on ID in URL
+    // get and set config based on ID in URL
     if (this.id) {
       const path = `/.netlify/functions/getConfig?id=${this.id}`;
       fetch(path)
         .then((res) => res.text())
-        .then((data) => console.log(data))
+        .then((data) => {
+          if (data.words) {
+            this.config.words = data.words;
+            this.config.buttonText = data.buttonText;
+          }
+        })
         .catch((e) => console.log(e));
     }
   },
