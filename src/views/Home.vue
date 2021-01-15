@@ -101,7 +101,7 @@ export default {
   created () {
     // get config based on ID in URL
     if (this.id) {
-      fetch("/.netlify/functions/getConfig", { id: this.id })
+      fetch("/.netlify/functions/getConfig", JSON.stringify({ id: this.id }))
         .then((res) => res.json())
         .then((data) => console.log(data))
         .catch((e) => console.error(e.toString()));
