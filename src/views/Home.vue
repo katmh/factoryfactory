@@ -186,23 +186,9 @@ export default {
         .then((res) => res.json())
         .then((data) => {
           this.updateURL(data._id);
-
-          // copy URL from hidden input
-          var tempInput = document.createElement("input");
-          tempInput.value = `${window.location.origin}/${data._id}`;
-          document.body.appendChild(tempInput);
-          tempInput.select();
-          document.execCommand("copy");
-          document.body.removeChild(tempInput);
-
-          document.getElementById("url_btn").innerHTML = "Copied!";
         })
         .catch((e) => {
           console.error(e.toString());
-          document.getElementById("url_btn").innerHTML = "An error occurred :(";
-          setTimeout(() => {
-            document.getElementById("url_btn").innerHTML = "Get Shareable URL";
-          }, 2000);
         });
     }
   }

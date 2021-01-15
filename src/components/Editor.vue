@@ -2,7 +2,7 @@
   <div>
     <div class="share-dialog">
       <header>
-        <h3 class="dialog-title" @click="makeURL">Share “{{ phrase }}”</h3>
+        <h3 class="dialog-title">Share “{{ phrase }}”</h3>
         <button class="close-button"><svg><use href="#close"></use></svg></button>
       </header>
       
@@ -20,7 +20,7 @@
       <summary>
         <h2>Customize</h2>
         <div id="url_container">
-          <button class="share-button btn" type="button" title="Share this page">
+          <button class="share-button btn" type="button" title="Share this page" @click="share">
             <svg><use href="#share-icon"></use></svg>
             <span>Share</span>
           </button>
@@ -113,8 +113,21 @@ export default {
       target.value = '';
       target.style.border = "1px solid transparent";
     },
-    makeURL() {
+    share() {
+      console.log("share")
       this.$emit("makeURL");
+      const shareDialog = document.querySelector('.share-dialog');
+      if (navigator.share) { 
+      navigator.share({
+          title: 'WebShare API Demo',
+          url: window.location.href
+        }).then(() => {
+          console.log('Thanks for sharing!');
+        })
+        .catch(console.error);
+        } else {
+            shareDialog.classList.add('is-open');
+        }
     },
     copy() {
       const field = document.getElementById("url_input");
@@ -125,23 +138,8 @@ export default {
   },
 
   mounted() {
-    const shareButton = document.querySelector('.share-button');
     const shareDialog = document.querySelector('.share-dialog');
     const closeButton = document.querySelector('.close-button');
-
-    shareButton.addEventListener('click', () => {
-      if (navigator.share) { 
-      navigator.share({
-          title: 'WebShare API Demo',
-          url: 'https://codepen.io/ayoisaiah/pen/YbNazJ'
-        }).then(() => {
-          console.log('Thanks for sharing!');
-        })
-        .catch(console.error);
-        } else {
-            shareDialog.classList.add('is-open');
-        }
-    });
 
     closeButton.addEventListener('click', () => {
       shareDialog.classList.remove('is-open');
