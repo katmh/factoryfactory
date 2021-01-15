@@ -11,7 +11,7 @@ const routes = [
     component: Home,
   },
   {
-    path: "/:base64",
+    path: "/:id",
     name: "dynamic",
     props: true,
     component: Home,
