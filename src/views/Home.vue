@@ -1,7 +1,7 @@
 <template>
   <div>
     <Generator :words="config.words" :buttonText="config.buttonText" v-on:regenerate="regenerate" />
-    <Editor :words="config.words" :buttonText="config.buttonText" :url="url" v-on:addWord="addWord" v-on:deleteSynonym="deleteSynonym" v-on:addSynonym="addSynonym" v-on:updateBtnText="updateBtnText" v-on:deleteWord="deleteWord" v-on:makeURL="makeURL" />
+    <Editor :words="config.words" :buttonText="config.buttonText" v-on:addWord="addWord" v-on:deleteSynonym="deleteSynonym" v-on:addSynonym="addSynonym" v-on:updateBtnText="updateBtnText" v-on:deleteWord="deleteWord" v-on:makeURL="makeURL" />
   </div>
 </template>
 
@@ -9,14 +9,12 @@
 import Generator from '../components/Generator.vue';
 import Editor from '../components/Editor.vue';
 
-const encode = str => btoa(unescape(encodeURIComponent(str)));
-const decode = str => decodeURIComponent(escape(atob(str)));
 const randomItemFrom = (arr) => (arr[Math.floor(Math.random() * arr.length)])
 
 export default {
   name: 'Home',
 
-  props: ["base64"],
+  props: ["id"],
 
   components: {
     Generator,
@@ -100,25 +98,14 @@ export default {
     }
   },
 
-  computed: {
-    url: function() {
-      return `https://factoryfactory.netlify.app/${encode(JSON.stringify(this.config))}`
-    }
-  },
-
   created () {
-    // decode URL string and parse as array
-    if (this.base64) {
-      const obj = JSON.parse(decode(this.base64))
-      this.config = obj;
+    // get config based on ID in URL
+    if (this.id) {
+      fetch("/.netlify/functions/getConfig", { id: this.id })
+        .then((res) => res.json())
+        .then((data) => console.log(data))
+        .catch((e) => console.error(e.toString()));
     }
-
-    // website.com/ index -> website.com/[base64 encoding of default config]
-    history.pushState(
-      {},
-      null,
-      encode(JSON.stringify(this.config))
-    )
   },
 
   methods: {
@@ -138,7 +125,6 @@ export default {
         value: "",
         synonyms: []
       }]
-      this.updateURL();
     },
     deleteSynonym(word, synonym) {
       this.config.words = this.config.words.map((item) => {
@@ -150,7 +136,6 @@ export default {
           ) : item.synonyms
         }
       })
-      this.updateURL();
     },
     addSynonym(word, synonym) {
       this.config.words = this.config.words.map((item) => {
@@ -162,19 +147,15 @@ export default {
           ) : item.synonyms
         }
       })
-      this.updateURL();
     },
     updateBtnText(newText) {
       this.config.buttonText = newText;
-      this.updateURL();
     },
     deleteWord(word) {
       this.config.words = this.config.words.filter((item) => item.default != word);
-      this.updateURL();
     },
-    updateURL() {
-      const encoded = encode(JSON.stringify(this.config));
-      history.pushState({}, null, encoded);
+    updateURL(id) {
+      history.pushState({}, null, id);
     },
     makeURL() {
       const body = JSON.stringify({
@@ -189,7 +170,7 @@ export default {
         body,
       })
         .then((res) => res.json())
-        .then((data) => console.log(data))
+        .then((data) => this.updateURL(data._id))
         .catch((e) => console.error(e.toString()));
     }
   }
