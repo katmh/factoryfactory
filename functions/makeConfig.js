@@ -5,7 +5,7 @@ exports.handler = async function(event) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: event.body,
+      body: JSON.stringify(event.body),
     })
       .then((res) => res.json())
       .then((data) => ({ statusCode: 200, data }))
