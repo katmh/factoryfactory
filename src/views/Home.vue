@@ -101,7 +101,7 @@ export default {
   created () {
     // get and set config based on ID in URL
     if (this.id) {
-      const path = `https://6001bcc19c39190007aecffe--factoryfactory.netlify.app/.netlify/functions/getConfig?id=${this.id}`;
+      const path = `/.netlify/functions/getConfig?id=${this.id}`;
       fetch(path)
         .then((res) => res.text())
         .then((data) => {
