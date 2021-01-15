@@ -101,12 +101,11 @@ export default {
   created () {
     // get config based on ID in URL
     if (this.id) {
-      fetch("/.netlify/functions/getConfig", {
-        body: JSON.stringify({ id: this.id })
-      })
-        .then((res) => res.json())
+      const path = `/.netlify/functions/getConfig?id=${this.id}`;
+      fetch(path)
+        .then((res) => res.text())
         .then((data) => console.log(data))
-        .catch((e) => console.error(e.toString()));
+        .catch((e) => console.log(e));
     }
   },
 

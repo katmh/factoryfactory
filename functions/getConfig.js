@@ -1,7 +1,7 @@
 const { default: axios } = require("axios");
 
 exports.handler = async function(event) {
-  const { id } = JSON.parse(event.body);
+  const id = event.queryStringParameters.id;
   try {
     return axios
       .get(`https://jsonbox.io/box_23ae45336b05b999ce70/${id}`)
