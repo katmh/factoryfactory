@@ -105,10 +105,8 @@ export default {
       fetch(path)
         .then((res) => res.text())
         .then((data) => {
-          if (data.words) {
-            this.config.words = data.words;
-            this.config.buttonText = data.buttonText;
-          }
+          this.config.words = data.words || this.config.words;
+          this.config.buttonText = data.buttonText || this.config.buttonText;
         })
         .catch((e) => console.log(e));
     }
@@ -175,8 +173,26 @@ export default {
         body,
       })
         .then((res) => res.json())
-        .then((data) => this.updateURL(data._id))
-        .catch((e) => console.error(e.toString()));
+        .then((data) => {
+          this.updateURL(data._id);
+
+          // copy URL from hidden input
+          var tempInput = document.createElement("input");
+          tempInput.value = `${window.location.origin}/${data._id}`;
+          document.body.appendChild(tempInput);
+          tempInput.select();
+          document.execCommand("copy");
+          document.body.removeChild(tempInput);
+
+          document.getElementById("url_btn").innerHTML = "Copied!";
+        })
+        .catch((e) => {
+          console.error(e.toString());
+          document.getElementById("url_btn").innerHTML = "An error occurred :(";
+          setTimeout(() => {
+            document.getElementById("url_btn").innerHTML = "Get Shareable URL";
+          }, 2000);
+        });
     }
   }
 }

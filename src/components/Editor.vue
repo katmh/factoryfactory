@@ -3,7 +3,7 @@
     <summary>
       <h2>Customize</h2>
       <div id="url_container">
-        <button id="url_btn" class="btn" v-on:click="$emit('makeURL')">Get Shareable URL</button>
+        <button id="url_btn" class="btn" v-on:click="makeURL">Get Shareable URL</button>
       </div>
     </summary>
     <div class="row" v-bind:key="index" v-for="(word, index) in words">
@@ -81,6 +81,9 @@ export default {
       this.$emit('addSynonym', word.default, target.value);
       target.value = '';
       target.style.border = "1px solid transparent";
+    },
+    makeURL() {
+      this.$emit("makeURL");
     }
   }
 }
@@ -257,7 +260,7 @@ h2 {
 }
 
 #url_btn {
-  font-size: 0.95rem;
+  font-size: 1rem;
   padding: 0.2rem 0.4rem;
 }
 
@@ -286,8 +289,7 @@ h2 {
     margin: 0 0.5rem 0 0.25rem;
   }
   #url_input, #url_btn {
-    font-size: 0.95rem;
-    height: 1.5rem;
+    height: 1.7rem;
   }
   #url_and_btn {
     display: inline-block;
